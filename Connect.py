@@ -3,13 +3,25 @@ mydb = mysql.connector.connect(host="localhost", user="ashwin1233", password="as
 
 mycursor = mydb.cursor()
 
-mycursor.execute("INSERT into student values ('Manju', 'Pune'), ('Monica', 'Devi') ")
+def add(name,city):
+    sql = "INSERT INTO student (name,college) VALUES (%s, %s)"
+    val = (name,city)
+    mycursor.execute(sql,val)
+    return "success"
 
-mycursor.execute("UPDATE student SET name='pram' WHERE name = 'prem'")
-mycursor.execute(("DELETE FROM student WHERE name='pram'"))
-mycursor.execute("select * from student")
+def update(name,new_name):
+    mycursor.execute("UPDATE student SET name='pram' WHERE name = 'prem'")
+    return "success"
+def delete(name):
+    mycursor.execute(("DELETE From student where name='pram'"))
+    return "success"
+
+def view():
+    mycursor.execute("select * from student")
+    for i in mycursor:
+        print(i)
+    return "success"
 
 
-
-for i in mycursor:
-    print(i)
+add("test1","hyd")
+view()
